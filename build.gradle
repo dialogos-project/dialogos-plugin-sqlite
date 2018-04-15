@@ -1,0 +1,20 @@
+plugins {
+  id 'java'
+  id 'application'
+}
+repositories {
+  jcenter()
+  maven { url "https://jitpack.io" }
+  maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+}
+
+dependencies {
+  compile 'com.github.timobaumann:dialogos:jitpack-SNAPSHOT'
+  compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.21.0.1'
+  compile group: 'org.json', name: 'json', version: '20180130'
+
+  testCompile 'junit:junit:4.12'
+}
+
+mainClassName = 'com.clt.dialogos.DialogOS'
+

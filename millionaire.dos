@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE wizard SYSTEM "Wizard.dtd">
+
+<wizard>
+	<plugin type="dialogos.plugin.sqlite">
+		<att name="dbURL" type="string" value="jdbc:sqlite:/home/timo/uni/projekte/inmind/dialogos-sqlite-plugin/millionaire.db"/>
+	</plugin>
+	<plugin type="dialogos.plugin.tts">
+	</plugin>
+	<plugin type="dialogos.plugin.sphinx">
+		<att name="language" type="string" value="de_DE"/>
+	</plugin>
+	<graph directed="1" Graphic="1" Layout="points">
+		<att name="width" type="integer" value="750"/>
+		<att name="height" type="integer" value="540"/>
+		<groovyFunctions></groovyFunctions>
+		<variable uid="ae53cea4-2eee-4c72-9354-fb6d3e73bae8">
+			<name>query</name>
+			<type>struct</type>
+			<value>undefined</value>
+		</variable>
+		<variable uid="dfbb3363-fb3e-4d60-90dc-d3332872c708">
+			<name>level</name>
+			<type>int</type>
+			<value>undefined</value>
+		</variable>
+		<variable uid="19ebedcf-f453-487c-8a28-83f4c772a6b0">
+			<name>dbResult</name>
+			<type>list</type>
+			<value>undefined</value>
+		</variable>
+		<node uid="0127c02d-e0f8-47f6-a99d-0f66b34c1915" class="edu.cmu.lti.dialogos.sphinx.plugin.SphinxNode">
+			<graphics x="633" y="425" fill="#b20000"/>
+			<att name="title" type="string" value="Sphinx"/>
+			<att name="language" type="string" value="US English"/>
+		</node>
+		<node uid="104aa9ec-3bf4-420e-b888-9fb0666b182b" class="edu.cmu.lti.dialogos.db.sqlite.SqliteNode">
+			<graphics x="530" y="131" fill="#ffb400"/>
+			<att name="title" type="string" value="get question"/>
+			<att name="resultVar" type="string" value="dbResult"/>
+			<att name="queryExp" type="string" value="&quot;select * from questions where level = &quot; + level + &quot; order by RANDOM() limit 1;&quot;"/>
+		</node>
+		<node uid="107d3e95-6c95-4d0a-89b3-50ca432ce37a" class="com.clt.diamant.graph.nodes.StartNode">
+			<graphics x="548" y="6" fill="#9999ff"/>
+			<att name="title" type="string" value="Start"/>
+		</node>
+		<node uid="12e034e9-668d-4379-a0b7-6458fe35d093" class="com.clt.diamant.graph.nodes.SetVariableNode">
+			<graphics x="391" y="386" fill="#c0c0c0"/>
+			<att name="title" type="string" value="increase level"/>
+			<att name="assignments" type="list">
+				<att name="1" type="list">
+					<att name="var_uid" type="string" value="dfbb3363-fb3e-4d60-90dc-d3332872c708"/>
+					<att name="var_value" type="string" value="level + 1"/>
+				</att>
+			</att>
+			<att name="simultaneous" type="boolean" value="0"/>
+		</node>
+		<node uid="1b6e1b50-c2fc-4f31-aaa8-b2d93d72bead" class="com.clt.diamant.graph.nodes.SetVariableNode">
+			<graphics x="537" y="72" fill="#c0c0c0"/>
+			<att name="title" type="string" value="reset game"/>
+			<att name="assignments" type="list">
+				<att name="1" type="list">
+					<att name="var_uid" type="string" value="dfbb3363-fb3e-4d60-90dc-d3332872c708"/>
+					<att name="var_value" type="string" value="1"/>
+				</att>
+			</att>
+			<att name="simultaneous" type="boolean" value="0"/>
+		</node>
+		<node uid="22408575-2f85-487c-9246-1a61e2202c9c" class="de.saar.coli.dialogos.marytts.plugin.TTSNode">
+			<graphics x="416" y="445" fill="#00b200"/>
+			<att name="title" type="string" value="cheer"/>
+			<att name="voice" type="string" value="cmu-slt-hsmm"/>
+			<att name="prompt" type="text">
+				<value>&quot;That was correct! On to Question &quot; + level + &quot;!&quot;</value>
+			</att>
+			<att name="prompt_type" type="string" value="expression"/>
+			<att name="wait" type="boolean" value="1"/>
+		</node>
+		<node uid="237e10ef-0f0d-4099-b447-6eebc4e9d7d4" class="com.clt.diamant.graph.nodes.ScriptNode">
+			<graphics x="527" y="189" fill="#aeaeae"/>
+			<att name="title" type="string" value="extract entry"/>
+			<att name="script" type="text">
+				<value>query = get(dbResult, 0);</value>
+			</att>
+		</node>
+		<node uid="3f826dbb-4d1a-472e-ab82-b50f4571d622" class="com.clt.diamant.graph.nodes.EndNode">
+			<graphics x="573" y="480" fill="#9999ff"/>
+			<att name="title" type="string" value="End"/>
+		</node>
+		<node uid="47ac3bb0-96ef-4e08-8e53-9529be869b6d" class="de.saar.coli.dialogos.marytts.plugin.TTSNode">
+			<graphics x="619" y="370" fill="#00b200"/>
+			<att name="title" type="string" value="play again?"/>
+			<att name="voice" type="string" value="cmu-slt-hsmm"/>
+			<att name="prompt" type="text">
+				<value>That was wrong. Do you want to play again?</value>
+			</att>
+			<att name="prompt_type" type="string" value="text"/>
+			<att name="wait" type="boolean" value="1"/>
+		</node>
+		<node uid="a61a6855-8e8d-4c30-a62a-d8b090e444bc" class="edu.cmu.lti.dialogos.sphinx.plugin.SphinxNode">
+			<graphics x="524" y="305" fill="#b20000"/>
+			<att name="title" type="string" value="replies"/>
+			<att name="language" type="string" value="US English"/>
+		</node>
+		<node uid="fc0a5fda-d222-4bc2-98b6-10d89f9a2fa4" class="de.saar.coli.dialogos.marytts.plugin.TTSNode">
+			<graphics x="531" y="248" fill="#00b200"/>
+			<att name="title" type="string" value="ask Question"/>
+			<att name="voice" type="string" value="cmu-slt-hsmm"/>
+			<att name="prompt" type="text">
+				<value>get(query, &quot;body&quot;) + &quot;  A: &quot; + 
+get(query, &quot;a&quot;) + &quot;? B: &quot; +
+get(query, &quot;b&quot;) + &quot;? C: &quot; +
+get(query, &quot;c&quot;) + &quot;? or D: &quot; +
+get(query, &quot;d&quot;) + &quot;?&quot;</value>
+			</att>
+			<att name="prompt_type" type="string" value="expression"/>
+			<att name="wait" type="boolean" value="1"/>
+		</node>
+		<edge src="0127c02d-e0f8-47f6-a99d-0f66b34c1915" tgt="3f826dbb-4d1a-472e-ab82-b50f4571d622">
+			<att name="condition" type="string" value="no"/>
+		</edge>
+		<edge src="0127c02d-e0f8-47f6-a99d-0f66b34c1915" tgt="1b6e1b50-c2fc-4f31-aaa8-b2d93d72bead">
+			<att name="condition" type="string" value="yes"/>
+		</edge>
+		<edge src="104aa9ec-3bf4-420e-b888-9fb0666b182b" tgt="237e10ef-0f0d-4099-b447-6eebc4e9d7d4">
+		</edge>
+		<edge src="107d3e95-6c95-4d0a-89b3-50ca432ce37a" tgt="1b6e1b50-c2fc-4f31-aaa8-b2d93d72bead">
+		</edge>
+		<edge src="12e034e9-668d-4379-a0b7-6458fe35d093" tgt="22408575-2f85-487c-9246-1a61e2202c9c">
+		</edge>
+		<edge src="1b6e1b50-c2fc-4f31-aaa8-b2d93d72bead" tgt="104aa9ec-3bf4-420e-b888-9fb0666b182b">
+		</edge>
+		<edge src="22408575-2f85-487c-9246-1a61e2202c9c" tgt="104aa9ec-3bf4-420e-b888-9fb0666b182b">
+		</edge>
+		<edge src="237e10ef-0f0d-4099-b447-6eebc4e9d7d4" tgt="fc0a5fda-d222-4bc2-98b6-10d89f9a2fa4">
+		</edge>
+		<edge src="47ac3bb0-96ef-4e08-8e53-9529be869b6d" tgt="0127c02d-e0f8-47f6-a99d-0f66b34c1915">
+		</edge>
+		<edge src="a61a6855-8e8d-4c30-a62a-d8b090e444bc" tgt="12e034e9-668d-4379-a0b7-6458fe35d093">
+			<att name="condition" type="string" value="ay"/>
+		</edge>
+		<edge src="a61a6855-8e8d-4c30-a62a-d8b090e444bc" tgt="47ac3bb0-96ef-4e08-8e53-9529be869b6d">
+			<att name="condition" type="string" value="bee"/>
+		</edge>
+		<edge src="a61a6855-8e8d-4c30-a62a-d8b090e444bc" tgt="47ac3bb0-96ef-4e08-8e53-9529be869b6d">
+			<att name="condition" type="string" value="sea"/>
+		</edge>
+		<edge src="a61a6855-8e8d-4c30-a62a-d8b090e444bc" tgt="47ac3bb0-96ef-4e08-8e53-9529be869b6d">
+			<att name="condition" type="string" value="de"/>
+		</edge>
+		<edge src="fc0a5fda-d222-4bc2-98b6-10d89f9a2fa4" tgt="a61a6855-8e8d-4c30-a62a-d8b090e444bc">
+		</edge>
+	</graph>
+</wizard>
