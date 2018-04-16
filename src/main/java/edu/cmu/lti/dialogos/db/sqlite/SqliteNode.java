@@ -32,7 +32,7 @@ public class SqliteNode extends Node {
 
     @Override
     public Node execute(WozInterface wozInterface, InputCenter inputCenter, ExecutionLogger executionLogger) {
-        // TODO: assemble query from QUERY expression, if this fails, assume the expression itself is SQL
+        // assemble query from QUERY expression, if this fails, assume the expression itself is SQL
         String expressionString = this.getProperty(QUERY).toString();
         Value v;
         String query; // = "select * from questions where level = 1 order by RANDOM() limit 1;";
@@ -44,7 +44,7 @@ public class SqliteNode extends Node {
             // attempt to interpret the input as SQL directly
             query = expressionString;
         }
-        System.err.println(query);
+        //System.err.println(query);
         Value queryResponse;
         try {
             queryResponse = Plugin.db.executeQuery(query);
