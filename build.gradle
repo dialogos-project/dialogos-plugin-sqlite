@@ -17,6 +17,5 @@ dependencies {
 
   testCompile 'junit:junit:4.12'
 }
-
 mainClassName = 'com.clt.dialogos.DialogOS'
-
+def version = '1.0'
