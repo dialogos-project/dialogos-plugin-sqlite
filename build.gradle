@@ -9,9 +9,6 @@ repositories {
 
 dependencies {
   compile(group:'com.github.coli-saar', name:'dialogos', version:'master-SNAPSHOT') {
-    exclude module: 'DialogOS_PocketSphinxPlugin'
-    exclude module: 'DialogOS_NxtPlugin'
-    exclude module: 'DialogOS_MinimalInputOutput'
     exclude module: 'DialogOS_SphinxPlugin'
     exclude module: 'DialogOS_MaryTTSPlugin'
   }
