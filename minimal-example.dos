@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE wizard SYSTEM "Wizard.dtd">
+
+<wizard>
+	<plugin type="dialogos.plugin.sqlite">
+		<att name="dbURL" type="string" value="jdbc:sqlite:millionaire.db"/>
+	</plugin>
+	<graph directed="1" Graphic="1" Layout="points">
+		<att name="width" type="integer" value="2549"/>
+		<att name="height" type="integer" value="1583"/>
+		<groovyFunctions></groovyFunctions>
+		<variable uid="8ad87883-dace-4f34-8064-b2b0778ca957">
+			<name>sqlresult</name>
+			<type>list</type>
+			<value>undefined</value>
+		</variable>
+		<node uid="95dbd9c5-7038-43ea-8082-8a588550f193" class="edu.cmu.lti.dialogos.db.sqlite.SqliteNode">
+			<graphics x="554" y="177" fill="#c0c0c0"/>
+			<att name="title" type="string" value="Sqlite"/>
+			<att name="resultVar" type="string" value="sqlresult"/>
+			<att name="queryExp" type="string" value="SELECT * FROM questions WHERE level = 1"/>
+		</node>
+		<node uid="bfe577db-a9c9-4b6e-8ae2-46419e213353" class="com.clt.diamant.graph.nodes.EndNode">
+			<graphics x="554" y="344" fill="#9999ff"/>
+			<att name="title" type="string" value="End"/>
+		</node>
+		<node uid="d6301cc5-bf4f-4292-b997-1da3cfa9788d" class="com.clt.diamant.graph.nodes.ScriptNode">
+			<graphics x="554" y="260" fill="#99ffff"/>
+			<att name="title" type="string" value="Script"/>
+			<att name="script" type="text">
+				<value>print(sqlresult);</value>
+			</att>
+		</node>
+		<node uid="f987ec86-b7a4-4b1e-8887-11c5f040930c" class="com.clt.diamant.graph.nodes.StartNode">
+			<graphics x="554" y="92" fill="#9999ff"/>
+			<att name="title" type="string" value="Start"/>
+		</node>
+		<edge src="95dbd9c5-7038-43ea-8082-8a588550f193" tgt="d6301cc5-bf4f-4292-b997-1da3cfa9788d">
+		</edge>
+		<edge src="d6301cc5-bf4f-4292-b997-1da3cfa9788d" tgt="bfe577db-a9c9-4b6e-8ae2-46419e213353">
+		</edge>
+		<edge src="f987ec86-b7a4-4b1e-8887-11c5f040930c" tgt="95dbd9c5-7038-43ea-8082-8a588550f193">
+		</edge>
+		<comment x="44" y="90" width="488" height="305" color="#ffff99">A minimal example for using the SQLite plugin:
+
+* first, select a database for the plugin to use. 
+In the menu, select Dialog→SQLite Plugin... and click on Open SQLite... select the database file to use (e.g. the millionaire.db distributed with this plugin)
+
+* make sure there is a variable to store the result of the SQL query. 
+In the menu, select Graph→Variables and ensure there is a list-style variable (in this example, there's already a variable &quot;sqlresult&quot;).
+
+* in the Sqlite node, enter an SQL expression (such as &quot;SELECT * from questions WHERE level = 1&quot; as in the example) and select the variable to store the result
+
+* do something with the result, such as printing to standard out (as in this example).</comment>
+	</graph>
+</wizard>
