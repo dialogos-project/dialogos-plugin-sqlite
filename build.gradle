@@ -5,7 +5,6 @@ plugins {
 }
 repositories {
   jcenter()
-  maven { url "https://oss.sonatype.org/content/repositories/snapshots" } // Sphinx-4
   maven { url "https://jitpack.io" }
 }
 
