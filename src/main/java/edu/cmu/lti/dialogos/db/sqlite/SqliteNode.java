@@ -78,7 +78,7 @@ public class SqliteNode extends Node {
      * - a dropdown for the variable to store into
      */
     @Override
-    protected JComponent createEditorComponent(Map<String, Object> properties) {
+    public JComponent createEditorComponent(Map<String, Object> properties) {
         JPanel p = new JPanel();
         JPanel horiz = new JPanel();
         horiz.add(new JLabel("SQL expression"));
@@ -94,13 +94,14 @@ public class SqliteNode extends Node {
     }
 
     @Override
-    protected void writeAttributes(XMLWriter out, IdMap uid_map) {
+    public void writeAttributes(XMLWriter out, IdMap uid_map) {
         super.writeAttributes(out, uid_map);
         Graph.printAtt(out, RESULT_VAR, this.getProperty(RESULT_VAR).toString());
         Graph.printAtt(out, QUERY, this.getProperty(QUERY).toString());
     }
 
-    @Override protected void readAttribute(XMLReader r, String name, String value, IdMap uid_map) throws SAXException {
+    @Override
+    public void readAttribute(XMLReader r, String name, String value, IdMap uid_map) throws SAXException {
         if (name.equals(RESULT_VAR) || name.equals(QUERY)) {
             this.setProperty(name, value);
         } else {
@@ -109,5 +110,6 @@ public class SqliteNode extends Node {
     }
 
     @Override
-    protected void writeVoiceXML(XMLWriter xmlWriter, IdMap idMap) { }
+    public void writeVoiceXML(XMLWriter xmlWriter, IdMap idMap) {
+    }
 }
