@@ -4,6 +4,7 @@ plugins {
   id 'application'
 }
 repositories {
+  mavenLocal()
   jcenter()
   maven { url "https://jitpack.io" }
 }
