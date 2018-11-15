@@ -19,5 +19,22 @@ dependencies {
   implementation group: 'org.json', name: 'json', version: '20180130'
   testCompile 'junit:junit:4.12'
 }
-def version = '1.0.2'
+
 mainClassName = 'com.clt.dialogos.DialogOS'
+
+def version = '1.0.2'
+def group = 'com.github.dialogos-project'
+project.version = version
+
+apply plugin: 'maven-publish' // to provide "gradlew publishToMavenLocal"
+// configuration for maven-publish plugin
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.github.dialogos-project'
+            artifactId = 'dialogos-plugin-sqlite'
+	    version = version
+            from components.java
+        }
+    }
+}
