@@ -13,6 +13,10 @@ dependencies {
   implementation(group:'com.github.dialogos-project', name:'dialogos', version:'v2.0.1') {
     exclude module: 'DialogOS_SphinxPlugin'
     exclude module: 'DialogOS_MaryTTSPlugin'
+    exclude module: 'TTSClient'
+    exclude module: 'SpeechClient'
+    exclude module: 'RecognizerClient'
+    exclude module: 'com.clt.audio'
   }
   runtime group:'com.github.dialogos-project', name:'dialogos', version:'v2.0.1'
   implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.21.0.1'
