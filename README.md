@@ -1,6 +1,8 @@
 # DialogOS plugin to work with SQLite databases
 Author: Timo Baumann
 
+**Note:** If you encounter problems with this plugin, please submit a bug report on the [main DialogOS issue tracker](https://github.com/dialogos-project/dialogos/issues) with the label "plugin: SQLite".
+
 This repository serves two purposes:
 
  - implement a simple SQLiteNode which enables SQL queries towards a SQLite database,
