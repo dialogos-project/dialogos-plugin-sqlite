@@ -71,8 +71,8 @@ public class Plugin implements com.clt.dialogos.plugin.Plugin {
                 AbstractAction openSqliteFile = new AbstractAction("Open SQLite...", Images.load("OpenFile.png")) {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        FileChooser fc = new FileChooser();
-                        fc.setFileFilter(new FileExtensionFilter("db", "Sqlite database file"));
+                        FileChooser fc = new FileChooser(new FileExtensionFilter("db", "Sqlite database file"));
+                        //fc.setFileFilter();
                         File file = fc.standardGetFile(p);
                         if (file != null)
                             try {

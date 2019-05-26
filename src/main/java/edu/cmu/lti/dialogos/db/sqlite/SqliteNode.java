@@ -47,7 +47,7 @@ public class SqliteNode extends Node {
         //System.err.println(query);
         Value queryResponse;
         try {
-            queryResponse = Plugin.db.executeQuery(query);
+            queryResponse = Plugin.db.executeStatement(query);
             //System.err.println(queryResponse);
         } catch (SQLException e) {
             e.printStackTrace();

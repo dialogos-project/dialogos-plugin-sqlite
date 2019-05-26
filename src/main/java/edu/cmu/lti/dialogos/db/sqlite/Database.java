@@ -1,6 +1,7 @@
 package edu.cmu.lti.dialogos.db.sqlite;
 
 import com.clt.script.exp.Value;
+import com.clt.script.exp.values.Undefined;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,11 +33,21 @@ public class Database {
         conn = null;
     }
 
-    Value executeQuery(String query) throws SQLException {
+    Value executeStatement(String statement) throws SQLException {
         openDatabase();
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery(query);
-        Value v = interpretResultSet(rs);
+        Value v = new Undefined();
+        Statement stmt = null;
+        try {
+            stmt = conn.createStatement();
+            boolean hasResult = stmt.execute(statement);
+            if (hasResult) {
+                ResultSet rs = stmt.executeQuery(statement);
+                v = interpretResultSet(rs);
+            }
+        } finally {
+            if (stmt != null)
+                stmt.close();
+        }
         return v;
     }
 
