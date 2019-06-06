@@ -19,6 +19,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Set;
 
 public class Plugin implements com.clt.dialogos.plugin.Plugin {
 
@@ -62,6 +63,11 @@ public class Plugin implements com.clt.dialogos.plugin.Plugin {
                 if (name.equals("dbURL")) {
                     db.setDatabaseURL(value);
                 }
+            }
+
+            @Override
+            public boolean isRelevantForNodes(Set<Class<? extends Node>> nodeTypes) {
+                return nodeTypes.contains(SqliteNode.class);
             }
 
             @Override
