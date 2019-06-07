@@ -45,9 +45,9 @@ public class SqliteNode extends Node {
             query = expressionString;
         }
         //System.err.println(query);
-        Value queryResponse;
+        Value queryResponse = null;
         try {
-            queryResponse = Plugin.db.executeStatement(query);
+            ((Plugin.SqlPluginRuntime) this.getPluginRuntime(Plugin.class, wozInterface)).getDatabase().executeStatement(query);
             //System.err.println(queryResponse);
         } catch (SQLException e) {
             e.printStackTrace();

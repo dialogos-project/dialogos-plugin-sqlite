@@ -23,8 +23,6 @@ import java.util.Set;
 
 public class Plugin implements com.clt.dialogos.plugin.Plugin {
 
-    final static Database db = new Database();
-
     @Override
     public void initialize() {
         Node.registerNodeTypes(com.clt.speech.Resources.getResources().createLocalizedString("ScriptNode"),
@@ -51,62 +49,78 @@ public class Plugin implements com.clt.dialogos.plugin.Plugin {
 
     @Override
     public PluginSettings createDefaultSettings() {
-        return new PluginSettings() {
-
-            @Override
-            public void writeAttributes(XMLWriter xmlWriter, IdMap idMap) {
-                Graph.printAtt(xmlWriter, "dbURL", db.jdbcURL);
-            }
-
-            @Override
-            protected void readAttribute(XMLReader xmlReader, String name, String value, IdMap idMap) throws SAXException {
-                if (name.equals("dbURL")) {
-                    db.setDatabaseURL(value);
-                }
-            }
-
-            @Override
-            public boolean isRelevantForNodes(Set<Class<? extends Node>> nodeTypes) {
-                return nodeTypes.contains(SqliteNode.class);
-            }
-
-            @Override
-            public JComponent createEditor() {
-                JPanel p = new JPanel();
-                JTextField urlField = new JTextField(db.jdbcURL, 40);
-                AbstractAction openSqliteFile = new AbstractAction("Open SQLite...", Images.load("OpenFile.png")) {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        FileChooser fc = new FileChooser(new FileExtensionFilter("db", "Sqlite database file"));
-                        //fc.setFileFilter();
-                        File file = fc.standardGetFile(p);
-                        if (file != null)
-                            try {
-                                urlField.setText("jdbc:sqlite:" + file.getCanonicalPath());
-                                db.setDatabaseURL(urlField.getText());
-                            } catch (IOException e1) {
-                                e1.printStackTrace();
-                            }
-                    }
-                };
-                urlField.addActionListener((ActionEvent e) -> {
-                    db.setDatabaseURL(urlField.getText());
-                });
-                p.add(new JButton(openSqliteFile));
-                p.add(urlField);
-                // ability to select a file
-                return p;
-            }
-
-            @Override
-            protected PluginRuntime createRuntime(Component component) throws Exception {
-                return new PluginRuntime() {
-                    @Override
-                    public void dispose() {
-                        db.closeDatabase();
-                    }
-                };
-            }
-        };
+        return new SqlPluginSettings();
     }
+
+    static class SqlPluginSettings extends PluginSettings {
+        final Database db = new Database();
+
+        @Override
+        public void writeAttributes(XMLWriter xmlWriter, IdMap idMap) {
+            Graph.printAtt(xmlWriter, "dbURL", db.jdbcURL);
+        }
+
+        @Override
+        protected void readAttribute(XMLReader xmlReader, String name, String value, IdMap idMap) throws SAXException {
+            if (name.equals("dbURL")) {
+                db.setDatabaseURL(value);
+            }
+        }
+
+        @Override
+        public boolean isRelevantForNodes(Set<Class<? extends Node>> nodeTypes) {
+            return nodeTypes.contains(SqliteNode.class);
+        }
+
+        @Override
+        public JComponent createEditor() {
+            JPanel p = new JPanel();
+            JTextField urlField = new JTextField(db.jdbcURL, 40);
+            AbstractAction openSqliteFile = new AbstractAction("Open SQLite...", Images.load("OpenFile.png")) {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    FileChooser fc = new FileChooser(new FileExtensionFilter("db", "Sqlite database file"));
+                    //fc.setFileFilter();
+                    File file = fc.standardGetFile(p);
+                    if (file != null)
+                        try {
+                            urlField.setText("jdbc:sqlite:" + file.getCanonicalPath());
+                            db.setDatabaseURL(urlField.getText());
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
+                }
+            };
+            urlField.addActionListener((ActionEvent e) -> {
+                db.setDatabaseURL(urlField.getText());
+            });
+            p.add(new JButton(openSqliteFile));
+            p.add(urlField);
+            // ability to select a file
+            return p;
+        }
+
+        @Override
+        protected PluginRuntime createRuntime(Component component) throws Exception {
+            return new SqlPluginRuntime(SqlPluginSettings.this);
+        }
+    }
+
+    static class SqlPluginRuntime implements PluginRuntime {
+
+        SqlPluginSettings settings;
+
+        SqlPluginRuntime(SqlPluginSettings settings) {
+            this.settings = settings;
+        }
+
+        Database getDatabase() {
+            return settings.db;
+        }
+        @Override
+        public void dispose() {
+            settings.db.closeDatabase();
+        }
+    }
+
 }
