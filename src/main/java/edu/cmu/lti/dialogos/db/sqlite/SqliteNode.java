@@ -35,7 +35,7 @@ public class SqliteNode extends Node {
         // assemble query from QUERY expression, if this fails, assume the expression itself is SQL
         String expressionString = this.getProperty(QUERY).toString();
         Value v;
-        String query; // = "select * from questions where level = 1 order by RANDOM() limit 1;";
+        String query;
         try {
             v = this.parseExpression(expressionString).evaluate();
             query = ((StringValue) v).getString();
@@ -47,7 +47,7 @@ public class SqliteNode extends Node {
         //System.err.println(query);
         Value queryResponse = null;
         try {
-            ((Plugin.SqlPluginRuntime) this.getPluginRuntime(Plugin.class, wozInterface)).getDatabase().executeStatement(query);
+            queryResponse = ((Plugin.SqlPluginRuntime) this.getPluginRuntime(Plugin.class, wozInterface)).getDatabase().executeStatement(query);
             //System.err.println(queryResponse);
         } catch (SQLException e) {
             e.printStackTrace();
