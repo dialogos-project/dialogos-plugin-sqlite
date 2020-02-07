@@ -82,7 +82,7 @@ public class SqliteNode extends Node {
         JPanel p = new JPanel();
         JPanel horiz = new JPanel();
         horiz.add(new JLabel("SQL expression"));
-        horiz.add(NodePropertiesDialog.createTextField(properties, QUERY));
+        horiz.add(NodePropertiesDialog.createTextArea(properties, QUERY));
         p.add(horiz);
         horiz = new JPanel();
         horiz.add(new JLabel("return value to:"));
