@@ -88,7 +88,7 @@ public class SqliteNode extends Node {
 
         JPanel horiz = new JPanel();
         horiz.add(new JLabel("SQL expression"));
-<<<<<<< HEAD
+
         c.gridx=0;
         c.gridy=0;
         p.add(horiz,c);
@@ -98,10 +98,9 @@ public class SqliteNode extends Node {
         c.gridy=1;
         p.add(horiz,c);
 
-=======
         horiz.add(NodePropertiesDialog.createTextArea(properties, QUERY));
         p.add(horiz);
->>>>>>> 79be1b65ee8fd4d6bf2ba57127b170850afcc812
+
         horiz = new JPanel();
         horiz.add(new JLabel("return value to:"));
         c.gridy=2;
@@ -128,7 +127,6 @@ public class SqliteNode extends Node {
             } catch (Exception exn) {
             } // variable deleted
         }
-
          */
         Graph.printAtt(out, RESULT_VAR, this.getProperty(RESULT_VAR).toString()); //save result_var in the file
         Graph.printAtt(out, QUERY, this.getProperty(QUERY).toString());//save user query in the file
@@ -140,6 +138,7 @@ public class SqliteNode extends Node {
         if (name.equals(RESULT_VAR) && value!=null) {
             //try {
                 this.setProperty(name, value);
+           // uid_map.variables.get(value) instead of value
             //} catch (Exception exn) {
             //    r.raiseException(com.clt.diamant.Resources.format("UnknownVariable", "ID " + value));
            // }
@@ -152,7 +151,6 @@ public class SqliteNode extends Node {
     }
 
     @Override
-    //*** why is this here, if it does not get overwritten?
     public void writeVoiceXML(XMLWriter xmlWriter, IdMap idMap) {
     }
 }
