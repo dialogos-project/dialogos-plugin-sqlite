@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE wizard SYSTEM "Wizard.dtd">
+
+<wizard>
+	<plugin type="dialogos.plugin.sqlite">
+		<att name="dbURL" type="string"/>
+	</plugin>
+	<plugin type="dialogos.plugin.tts">
+	</plugin>
+	<plugin type="dialogos.plugin.sphinx">
+		<att name="language" type="string" value="de_DE"/>
+	</plugin>
+	<graph directed="1" Graphic="1" Layout="points">
+		<att name="width" type="integer" value="750"/>
+		<att name="height" type="integer" value="540"/>
+		<groovyFunctions></groovyFunctions>
+		<variable uid="a105b1fa-68c0-49b6-986a-0c2d69e9cb8f">
+			<name>test</name>
+			<type>string</type>
+			<value>undefined</value>
+		</variable>
+		<node uid="0bd73670-ccf3-4e5b-bf47-b6c0f63dafec" class="com.clt.diamant.graph.nodes.EndNode">
+			<graphics x="361" y="335" fill="#9999ff"/>
+			<att name="title" type="string" value="Ende"/>
+		</node>
+		<node uid="40bc4b63-0749-4f86-b582-df7eeb026681" class="com.clt.diamant.graph.nodes.StartNode">
+			<graphics x="370" y="40" fill="#9999ff"/>
+			<att name="title" type="string" value="Start"/>
+		</node>
+		<node uid="4f11e91b-946b-430a-b7a9-a9ed52650c6b" class="edu.cmu.lti.dialogos.db.sqlite.SqliteNode">
+			<graphics x="392" y="178" fill="#c0c0c0"/>
+			<att name="title" type="string" value="Sqlite"/>
+			<att name="resultVar" type="string" value="test"/>
+			<att name="queryExp" type="string" value=""/>
+		</node>
+		<edge src="40bc4b63-0749-4f86-b582-df7eeb026681" tgt="4f11e91b-946b-430a-b7a9-a9ed52650c6b">
+		</edge>
+		<edge src="4f11e91b-946b-430a-b7a9-a9ed52650c6b" tgt="0bd73670-ccf3-4e5b-bf47-b6c0f63dafec">
+		</edge>
+	</graph>
+</wizard>
