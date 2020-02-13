@@ -88,7 +88,6 @@ public class SqliteNode extends Node {
 
         JPanel horiz = new JPanel();
         horiz.add(new JLabel("SQL expression"));
-
         c.gridx=0;
         c.gridy=0;
         p.add(horiz,c);
@@ -97,9 +96,6 @@ public class SqliteNode extends Node {
         horiz.add(NodePropertiesDialog.createTextArea(properties, QUERY));
         c.gridy=1;
         p.add(horiz,c);
-
-        horiz.add(NodePropertiesDialog.createTextArea(properties, QUERY));
-        p.add(horiz);
 
         horiz = new JPanel();
         horiz.add(new JLabel("return value to:"));
