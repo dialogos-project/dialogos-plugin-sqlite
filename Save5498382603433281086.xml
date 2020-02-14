@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE wizard SYSTEM "Wizard.dtd">
+
+<wizard>
+	<plugin type="dialogos.plugin.sqlite">
+		<att name="dbURL" type="string"/>
+	</plugin>
+	<plugin type="dialogos.plugin.tts">
+	</plugin>
+	<plugin type="dialogos.plugin.sphinx">
+		<att name="language" type="string" value="de_DE"/>
+	</plugin>
+	<graph directed="1" Graphic="1" Layout="points">
+		<att name="width" type="integer" value="750"/>
+		<att name="height" type="integer" value="540"/>
+		<groovyFunctions></groovyFunctions>
+		<variable uid="69af3db9-79c5-4a0f-bde9-1948da95daae">
+			<name>test</name>
+			<type>string</type>
+			<value>undefined</value>
+		</variable>
+		<node uid="9b076aa7-5058-4772-9934-4b6f117f0163" class="com.clt.diamant.graph.nodes.StartNode">
+			<graphics x="370" y="40" fill="#9999ff"/>
+			<att name="title" type="string" value="Start"/>
+		</node>
+		<node uid="a558bf97-0281-44c9-9b59-d63269759c6e" class="edu.cmu.lti.dialogos.db.sqlite.SqliteNode">
+			<graphics x="377" y="195" fill="#c0c0c0"/>
+			<att name="title" type="string" value="Sqlite"/>

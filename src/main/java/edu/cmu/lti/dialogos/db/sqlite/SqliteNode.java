@@ -113,7 +113,7 @@ public class SqliteNode extends Node {
 
     @Override
     public void writeAttributes(XMLWriter out, IdMap uid_map) {
-        super.writeAttributes(out, uid_map); //saves graph information to file
+       // super.writeAttributes(out, uid_map); //saves graph information to file
         Slot v = (Slot) this.getProperty(RESULT_VAR);
         if (v != null) {
             try {
@@ -122,7 +122,7 @@ public class SqliteNode extends Node {
             } catch (Exception exn) {
             } // variable deleted
         }
-        Graph.printAtt(out, RESULT_VAR, this.getProperty(RESULT_VAR).toString()); //save result_var in the file
+       // Graph.printAtt(out, RESULT_VAR, this.getProperty(RESULT_VAR).toString()); //save result_var in the file
         Graph.printAtt(out, QUERY, this.getProperty(QUERY).toString());//save user query in the file
     }
 
