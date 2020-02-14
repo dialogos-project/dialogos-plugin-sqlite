@@ -33,7 +33,6 @@ public class SqliteNode extends Node {
     }
 
     @Override
-    // ***What are the parameters?
     public Node execute(WozInterface wozInterface, InputCenter inputCenter, ExecutionLogger executionLogger) {
         // assemble query from QUERY expression, if this fails, assume the expression itself is SQL
         String expressionString = this.getProperty(QUERY).toString(); //***gets user input
@@ -105,6 +104,7 @@ public class SqliteNode extends Node {
         horiz = new JPanel();
         horiz.add(NodePropertiesDialog.createComboBox(properties, RESULT_VAR,
                 this.getGraph().getAllVariables(Graph.LOCAL)));
+       // horiz.add(NodePropertiesDialog.createTextArea(properties, RESULT_VAR)); //input kept when loading file -> ComboBox creates the problem
         c.gridy=3;
         p.add(horiz,c);
 
@@ -113,8 +113,7 @@ public class SqliteNode extends Node {
 
     @Override
     public void writeAttributes(XMLWriter out, IdMap uid_map) {
-        super.writeAttributes(out, uid_map); //***saves graph information to file
-        /*
+        super.writeAttributes(out, uid_map); //saves graph information to file
         Slot v = (Slot) this.getProperty(RESULT_VAR);
         if (v != null) {
             try {
@@ -123,7 +122,6 @@ public class SqliteNode extends Node {
             } catch (Exception exn) {
             } // variable deleted
         }
-         */
         Graph.printAtt(out, RESULT_VAR, this.getProperty(RESULT_VAR).toString()); //save result_var in the file
         Graph.printAtt(out, QUERY, this.getProperty(QUERY).toString());//save user query in the file
     }
@@ -132,12 +130,12 @@ public class SqliteNode extends Node {
     //loads graph with attributes from saved file
     public void readAttribute(XMLReader r, String name, String value, IdMap uid_map) throws SAXException {
         if (name.equals(RESULT_VAR) && value!=null) {
-            //try {
-                this.setProperty(name, value);
-           // uid_map.variables.get(value) instead of value
-            //} catch (Exception exn) {
-            //    r.raiseException(com.clt.diamant.Resources.format("UnknownVariable", "ID " + value));
-           // }
+            try {
+                this.setProperty(name, uid_map.variables.get(value));
+
+            } catch (Exception exn) {
+                r.raiseException(com.clt.diamant.Resources.format("UnknownVariable", "ID " + value));
+           }
         }
         else if (name.equals(QUERY)) {
             this.setProperty(name, value);
