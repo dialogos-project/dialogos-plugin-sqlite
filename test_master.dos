@@ -26,7 +26,7 @@
 		<node uid="ddb67ac0-5994-4ff1-90f7-95f22a0ebe1e" class="edu.cmu.lti.dialogos.db.sqlite.SqliteNode">
 			<graphics x="371" y="137" fill="#c0c0c0"/>
 			<att name="title" type="string" value="Sqlite"/>
-			<att name="resultVar" type="string" value="test"/>
+			<att name="resultVar" type="string" value="a1e57aca-db8c-417d-9996-6153820c76bc"/>
 			<att name="queryExp" type="string" value="test_query"/>
 		</node>
 		<edge src="d35d4f42-1b42-4b66-ac04-caf4f9455be7">
