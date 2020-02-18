@@ -87,7 +87,7 @@ public class SqliteNode extends Node {
 
         JPanel horiz = new JPanel();
         horiz.add(new JLabel("SQL expression"));
-        //position of JPanel in GridBag
+        //set x- and y-position of JPanel in GridBagLayout
         c.gridx=0;
         c.gridy=0;
         p.add(horiz,c);
@@ -135,7 +135,6 @@ public class SqliteNode extends Node {
                 this.setProperty(name, uid_map.variables.get(value));
             } catch (Exception exn) {
                 this.setProperty(name, value);
-//                r.raiseException(com.clt.diamant.Resources.format("UnknownVariable", "ID " + value));
             }
         }
         else if (name.equals(QUERY)) {

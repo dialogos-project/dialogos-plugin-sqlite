@@ -5,11 +5,6 @@
 	<plugin type="dialogos.plugin.sqlite">
 		<att name="dbURL" type="string" value="jdbc:sqlite:millionaire.db"/>
 	</plugin>
-	<plugin type="dialogos.plugin.tts">
-	</plugin>
-	<plugin type="dialogos.plugin.sphinx">
-		<att name="language" type="string" value="de_DE"/>
-	</plugin>
 	<graph directed="1" Graphic="1" Layout="points">
 		<att name="width" type="integer" value="2549"/>
 		<att name="height" type="integer" value="1583"/>
