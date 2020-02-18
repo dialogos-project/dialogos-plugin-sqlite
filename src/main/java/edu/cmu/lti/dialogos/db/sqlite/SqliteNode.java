@@ -35,7 +35,7 @@ public class SqliteNode extends Node {
     @Override
     public Node execute(WozInterface wozInterface, InputCenter inputCenter, ExecutionLogger executionLogger) {
         // assemble query from QUERY expression, if this fails, assume the expression itself is SQL
-        String expressionString = this.getProperty(QUERY).toString(); //***gets user input
+        String expressionString = this.getProperty(QUERY).toString(); //gets user input
         Value v;
         String query;
         try {
