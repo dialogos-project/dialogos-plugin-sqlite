@@ -11,7 +11,9 @@ import com.clt.xml.XMLReader;
 import com.clt.xml.XMLWriter;
 import org.xml.sax.SAXException;
 
+import java.awt.*;
 import javax.swing.*;
+
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +35,7 @@ public class SqliteNode extends Node {
     @Override
     public Node execute(WozInterface wozInterface, InputCenter inputCenter, ExecutionLogger executionLogger) {
         // assemble query from QUERY expression, if this fails, assume the expression itself is SQL
-        String expressionString = this.getProperty(QUERY).toString();
+        String expressionString = this.getProperty(QUERY).toString(); //gets user input
         Value v;
         String query;
         try {
@@ -80,31 +82,64 @@ public class SqliteNode extends Node {
     @Override
     public JComponent createEditorComponent(Map<String, Object> properties) {
         JPanel p = new JPanel();
+        p.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+
         JPanel horiz = new JPanel();
         horiz.add(new JLabel("SQL expression"));
+        //set x- and y-position of JPanel in GridBagLayout
+        c.gridx=0;
+        c.gridy=0;
+        p.add(horiz,c);
+
+        horiz = new JPanel();
         horiz.add(NodePropertiesDialog.createTextArea(properties, QUERY));
-        p.add(horiz);
+        c.gridy=1;
+        p.add(horiz,c);
+
         horiz = new JPanel();
         horiz.add(new JLabel("return value to:"));
+        c.gridy=2;
+        p.add(horiz,c);
+
+        horiz = new JPanel();
         horiz.add(NodePropertiesDialog.createComboBox(properties, RESULT_VAR,
-                this.getGraph().getAllVariables(Graph.LOCAL))
-        );
-        p.add(horiz);
+               this.getGraph().getAllVariables(Graph.LOCAL)));
+
+        c.gridy=3;
+        p.add(horiz,c);
+
         return p;
     }
 
     @Override
     public void writeAttributes(XMLWriter out, IdMap uid_map) {
-        super.writeAttributes(out, uid_map);
-        Graph.printAtt(out, RESULT_VAR, this.getProperty(RESULT_VAR).toString());
+
+        Slot v = (Slot) this.getProperty(RESULT_VAR);
+        if (v != null) {
+            try {
+                String uid = uid_map.variables.getKey(v);
+                Graph.printAtt(out, RESULT_VAR, uid);
+            } catch (Exception exn) {
+            } // variable deleted
+        }
+
         Graph.printAtt(out, QUERY, this.getProperty(QUERY).toString());
     }
 
     @Override
+    //loads graph with attributes from saved file
     public void readAttribute(XMLReader r, String name, String value, IdMap uid_map) throws SAXException {
-        if (name.equals(RESULT_VAR) || name.equals(QUERY)) {
+        if (name.equals(RESULT_VAR) && value!=null) {
+            try {
+                this.setProperty(name, uid_map.variables.get(value));
+            } catch (Exception exn) {
+                this.setProperty(name, value);
+            }
+        }
+        else if (name.equals(QUERY)) {
             this.setProperty(name, value);
-        } else {
+        }else {
             super.readAttribute(r, name, value, uid_map);
         }
     }

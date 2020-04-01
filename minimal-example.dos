@@ -17,7 +17,7 @@
 		<node uid="95dbd9c5-7038-43ea-8082-8a588550f193" class="edu.cmu.lti.dialogos.db.sqlite.SqliteNode">
 			<graphics x="554" y="177" fill="#c0c0c0"/>
 			<att name="title" type="string" value="Sqlite"/>
-			<att name="resultVar" type="string" value="sqlresult"/>
+			<att name="resultVar" type="string" value="8ad87883-dace-4f34-8064-b2b0778ca957"/>
 			<att name="queryExp" type="string" value="SELECT * FROM questions WHERE level = 1"/>
 		</node>
 		<node uid="bfe577db-a9c9-4b6e-8ae2-46419e213353" class="com.clt.diamant.graph.nodes.EndNode">
