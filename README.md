@@ -32,6 +32,8 @@ to using the statement verbatim. Consider the following cases:
 4. select * from questions where level = " + level + " order by RANDOM() limit 1;
 5. select * from questions where level = + level + order by RANDOM() limit 1;
 6. "select * from questions where level = " + level + " order by RANDOM() limit 1;"
+7. "select * from questions where answer = " + answer + " order by RANDOM() limit 1;"
+8. "select * from questions where answer = \"" + answer + "\" order by RANDOM() limit 1;"
 ```
 1. will be passed to SQL verbatim because it does not evaluate to an expression
    (`select` probably isn't defined, even if it were and could be multiplied `*`,
@@ -49,6 +51,11 @@ to using the statement verbatim. Consider the following cases:
 6. works as intended: is evaluated to a string into which the value of level is
    included (e.g. "select * from questions where level = 1 order by RANDOM() limit 1;"
    and the condition is well-formed and meaningful SQL.
+7. treats string variables as column names. Strings are a special case. The crucial point is that column names as well as cell values can be strings. So, for `answer = "A"` the expression would evaluate to 
+`"select * from questions where answer = A order by RANDOM() limit 1;"`
+Here, `A` is interpreted as a column name (similar to 3.).
+8. treats string variables as cell values. For an example where `answer = "A"`, the expression evaluates to 
+`"select * from questions where answer = "A" order by RANDOM() limit 1;"`
 
 Example database content courtesy of the jQuizshow project:
 http://quizshow.sourceforge.net/ (reformated as a SQLite database).
