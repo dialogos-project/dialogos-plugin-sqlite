@@ -1,16 +1,16 @@
 plugins {
   id 'java'
-  id 'maven'
   id 'application'
 }
+
 repositories {
-  mavenLocal()
-  jcenter()
+  mavenCentral()
   maven { url "https://jitpack.io" }
+  mavenLocal()
 }
 
 dependencies {
-  implementation(group:'com.github.dialogos-project', name:'dialogos', version:'2.1.1') {
+  implementation(group:'com.github.dialogos-project', name:'dialogos', version:'2.1.3') {
     exclude module: 'DialogOS_SphinxPlugin'
     exclude module: 'DialogOS_MaryTTSPlugin'
     exclude module: 'TTSClient'
@@ -18,10 +18,10 @@ dependencies {
     exclude module: 'RecognizerClient'
     exclude module: 'com.clt.audio'
   }
-  runtime group:'com.github.dialogos-project', name:'dialogos', version:'2.1.1'
+/*  runtimeOnly group:'com.github.dialogos-project', name:'dialogos', version:'2.1.3'
   implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.21.0.1'
-  implementation group: 'org.json', name: 'json', version: '20180130'
-  testCompile 'junit:junit:4.12'
+  implementation group: 'org.json', name: 'json', version: '20200518'
+  testImplementation 'junit:junit:4.12'
 }
 
 mainClassName = 'com.clt.dialogos.DialogOS'
@@ -29,6 +29,13 @@ mainClassName = 'com.clt.dialogos.DialogOS'
 def version = '1.0.2'
 def group = 'com.github.dialogos-project'
 project.version = version
+
+tasks.withType(Tar) {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+tasks.withType(Zip) {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
 
 apply plugin: 'maven-publish' // to provide "gradlew publishToMavenLocal"
 // configuration for maven-publish plugin
