@@ -18,7 +18,7 @@ dependencies {
     exclude module: 'RecognizerClient'
     exclude module: 'com.clt.audio'
   }
-/*  runtimeOnly group:'com.github.dialogos-project', name:'dialogos', version:'2.1.3'
+/*  runtimeOnly group:'com.github.dialogos-project', name:'dialogos', version:'2.1.3' */
   implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.21.0.1'
   implementation group: 'org.json', name: 'json', version: '20200518'
   testImplementation 'junit:junit:4.12'
