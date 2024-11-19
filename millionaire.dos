@@ -37,7 +37,7 @@
 		<node uid="104aa9ec-3bf4-420e-b888-9fb0666b182b" class="edu.cmu.lti.dialogos.db.sqlite.SqliteNode">
 			<graphics x="556" y="116" fill="#ffb400"/>
 			<att name="title" type="string" value="get question"/>
-			<att name="resultVar" type="string" value="dbResult"/>
+			<att name="resultVar" type="string" value="19ebedcf-f453-487c-8a28-83f4c772a6b0"/>
 			<att name="queryExp" type="string" value="&quot;select * from questions where level = &quot; + level + &quot; order by RANDOM() limit 1;&quot;"/>
 		</node>
 		<node uid="107d3e95-6c95-4d0a-89b3-50ca432ce37a" class="com.clt.diamant.graph.nodes.StartNode">
@@ -75,6 +75,7 @@
 			</att>
 			<att name="prompt_type" type="string" value="expression"/>
 			<att name="wait" type="boolean" value="1"/>
+			<att name="await_silence" type="boolean" value="0"/>
 		</node>
 		<node uid="237e10ef-0f0d-4099-b447-6eebc4e9d7d4" class="com.clt.diamant.graph.nodes.ScriptNode">
 			<graphics x="553" y="174" fill="#aeaeae"/>
@@ -96,6 +97,7 @@
 			</att>
 			<att name="prompt_type" type="string" value="text"/>
 			<att name="wait" type="boolean" value="1"/>
+			<att name="await_silence" type="boolean" value="0"/>
 		</node>
 		<node uid="a61a6855-8e8d-4c30-a62a-d8b090e444bc" class="edu.cmu.lti.dialogos.sphinx.plugin.SphinxNode">
 			<graphics x="550" y="294" fill="#b20000"/>
@@ -107,14 +109,15 @@
 			<att name="title" type="string" value="ask Question"/>
 			<att name="voice" type="string" value="cmu-slt-hsmm"/>
 			<att name="prompt" type="text">
-				<value>get(query, &quot;body&quot;) + &quot;  A: &quot; + 
-get(query, &quot;a&quot;) + &quot;? B: &quot; +
-get(query, &quot;b&quot;) + &quot;? C: &quot; +
-get(query, &quot;c&quot;) + &quot;? or D: &quot; +
+				<value>get(query, &quot;body&quot;) + &quot;  A, &quot; + 
+get(query, &quot;a&quot;) + &quot;? B, &quot; +
+get(query, &quot;b&quot;) + &quot;? C, &quot; +
+get(query, &quot;c&quot;) + &quot;? or D, &quot; +
 get(query, &quot;d&quot;) + &quot;?&quot;</value>
 			</att>
 			<att name="prompt_type" type="string" value="expression"/>
 			<att name="wait" type="boolean" value="1"/>
+			<att name="await_silence" type="boolean" value="0"/>
 		</node>
 		<edge src="0127c02d-e0f8-47f6-a99d-0f66b34c1915" tgt="3f826dbb-4d1a-472e-ab82-b50f4571d622">
 			<att name="condition" type="string" value="no"/>
