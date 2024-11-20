@@ -18,7 +18,7 @@ dependencies {
     exclude module: 'RecognizerClient'
     exclude module: 'com.clt.audio'
   }
-  runtimeOnly group:'com.github.dialogos-project', name:'dialogos', version:'2.1.4' 
+  runtimeOnly group:'com.github.dialogos-project', name:'dialogos', version:'2.1.4'
   runtimeOnly(group: 'com.github.cmusphinx', name:'sphinx4', version:'44a5c08') {
     exclude module: 'sphinx4-samples'
   }
